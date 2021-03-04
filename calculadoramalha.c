@@ -55,17 +55,32 @@ for(i=0;i<a;i++){
 //Cálculo Gauss-Seidel
 int n = 0; //variável de contagem de iterações
 float resultados[a]; //vetor de resultados
-
+float soma = 0;
 //Inicio das iterações
 while (n < 100){
     for (i=0;i<a;i++){
-    resultados[i] = (1/matriz[i][i])*(termos[i]-);
+        for (j=0;j<a;j++){
+            soma = soma+(matriz[i][j]*resultados[j]);
+            printf(" Soma: %.2f \n\n", soma);
+        }
+
+        resultados[i] = (1/matriz[i][i])*(termos[i]-soma);
+
+
+    if (i=a){
+        n = 100;
+    }
     }
     n++;
 }
-printf("Número de iterações: %d \n\n", n);
-printf("%.2f",resultados[0]);
 
+
+//Resultados
+printf("Número de iterações: %d \n\n", n);
+
+for (i=0;i<a;i++){
+printf("X_%d = %.2f \n", i, resultados[i]);
+}
 
 //finaliza o programa
 printf("\n");
