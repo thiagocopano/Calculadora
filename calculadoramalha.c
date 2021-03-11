@@ -3,7 +3,7 @@
 #include <math.h>
 #include <locale.h>
 
-/* ------- Função para verificar se um número é inteiro --------- */
+/* ------- Função para verificar se um número é inteiro ------------ */
 int verifica_int(float valor){
     if (valor == (int)valor){ //(int)valor -> transforma em inteiro
         return 1;
@@ -11,6 +11,7 @@ int verifica_int(float valor){
         return 0;
     }
     return 0;
+
 }
 
 /* ------- Função main() -------------------------------------------- */
@@ -28,51 +29,75 @@ int j; //contador de coluna
 
 
 //Rotina para identificação da dimensão da matriz
-printf(" Digite a dimensão da Matriz A: ");
-fflush(stdin); //Limpa o cache da entrada
-scanf("%d",&a); //Adquire a dimensão da matriz
+printf("\n");      //Vai pra próxima linha
+printf(" | ------ CALCULADORA DE SISTEMAS LINEARES ----- |");
+printf("\n | \n"); //Pula 1 linha
+printf(" | Dimensão da Matriz = ");
+fflush(stdin);     //Limpa o cache da entrada
+scanf("%d",&a);    //Adquire a dimensão da matriz
+printf(" | \n\n");
+
+
 float matriz[a][a];//Define a matriz dos argumentos "a"
-float termos[a]; //Define o vetor de termos independentes "b"
-system("cls");
+float termos[a];   //Define o vetor de termos independentes "b"
+
+/* ------------------------- Rotina para inserção dos argumentos ------------------------- */
+
+printf(" | ------- Digite os argumentos da Matriz ------ |");
+printf("\n | \n");
+
+//Imprime o modelo da matriz a ser digitada
+for(i=0;i<a;i++){
+    printf(" |");
+    for(j=0;j<a;j++){
+    printf(" a%d%d", i+1, j+1);
+    }
+    printf(" | b%d |\n",i+1);
+}
+printf(" | \n\n | Argumentos: \n | \n");
 
 //Rotina para inserção dos argumentos 'a'
-printf(" Digite os respectivos argumentos da Matriz A: \n\n");
 for(i=0;i<a;i++){
 	for(j=0;j<a;j++){
-		printf("a[%d][%d]: ", i+1, j+1);
+		printf(" | a%d%d = ", i+1, j+1);
 		fflush(stdin);
 		scanf("%f",&matriz[i][j]);
     }
 }
+printf(" | \n\n | Termos independentes: \n | \n");
 
 //Rotina para inserção dos termos independentes 'b'
-printf("\n Digite os termos independentes: \n\n");
 for(i=0;i<a;i++){
-    printf("b[%d]", i+1);
+    printf(" | b%d = ", i+1);
     fflush(stdin);
     scanf("%f",&termos[i]);
 }
+printf(" | \n\n");
 
 //Rotina para imprimir a matriz inserida
-system("cls");
-printf("\n");
-printf(" Matriz A: \n\n");
+system("cls"); // Limpa a tela
+
+printf("\n");      //Vai pra próxima linha
+printf(" | ------ CALCULADORA DE SISTEMAS LINEARES ----- |");
+printf("\n | \n"); //Pula 1 linha
+printf(" | ------------- Matriz informada -------------- |");
+printf("\n | \n");
 for(i=0;i<a;i++){
+    printf(" |");
     for(j=0;j<a;j++){
-    printf(" %.2f ",matriz[i][j]);
+    printf(" %7.2f", matriz[i][j]);
     }
-    printf("| %.2f \n",termos[i]);
+    printf(" | %7.2f |\n", termos[i]);
 }
-printf("\n");
-
-
-//Cálculo Gauss-Seidel
+printf(" | \n\n");
+/* ------------------ Início dos Cálculos ------------------ */
 int aux = 0;
 float resultados[a]; //vetor de resultados
 float res_ant[a];
+int n = 1;      //Para contagem de iterações
+float soma = 0; //Para soma dos argumentos
 
-
-/* ------ Inicio das iterações ------ */
+/* ------------------ Inicio das iterações ----------------- */
 
 //Limpa as variáveis antes de iniciar
 for (i=0;i<a;i++){
@@ -80,52 +105,41 @@ for (i=0;i<a;i++){
     res_ant[i] = 0;
 }
 
-//Inicia o Loop
-while (aux != 3){
+printf(" | ----------- Inicio das Iterações ------------ |");
+printf("\n | \n"); //Pula 1 linha
 
-    /* --------- Variáveis Locais ---------*/
-    int n;      //Para contagem de iterações
-    float soma; //Para soma dos argumentos
+//Inicia o Loop
+while (aux != a){
+
+printf(" | Iteração Nº %d \n", n);
+if(n >= 100){
+    printf("\n");
+    break;
+}
+
 
     /* --------- Repetição para calcular a soma dos argumentos ------------------------------- */
     for (i=0;i<a;i++){
-
         soma = 0; //Zerar a variável de soma
 
         //Soma dos argumentos
         for (j=0;j<a;j++){
             soma = soma + (matriz[i][j]*resultados[j]);
         }
-
         soma = (soma - matriz[i][i]*resultados[i]); // Exemplo: a11*x1 + a12*x2 + a13*x3 - a11*x1
         resultados[i] = ((termos[i]-soma)/matriz[i][i]); //
-
-        printf("[%d][%d] : %3.2f \n ", i, j, resultados[i]);
     }
 
     //Condição para verificar a diferença entre todos
     //termos calculados em 1 rodada de 'a' argumentos
     if (verifica_int(i/a)){
         aux = 0; //redefine a variável auxiliar que acumula
-        printf("\n Verificando diferença... \n\n");
         float diferenca[a];
-
-
             for (i=0;i<a;i++){
                 float n1 = fabs(res_ant[i]);
                 float n2 = fabs(resultados[i]);
-
-                printf("Módulo do res_ant[%d]: %3.2f \n", i, n1);
-                printf("Módulo do resultados[%d]: %3.2f \n", i, n2);
-
-                diferenca[i] = fabs(n1-n2);
-
-                printf("Diferença[%d]: %3.2f \n\n", i, diferenca[i]);
-            }
-            for (i=0;i<a;i++){
-                if (diferenca[i] < 0.01){
+                if (fabs(n1-n2) <= 0.001){
                     aux++;
-                    printf("Aux[%d]: %d \n\n", i, aux);
                 }
             }
         //Repetição para atualizar o vetor de resultados anteriores.
@@ -133,22 +147,31 @@ while (aux != 3){
             res_ant[i] = resultados[i];
         }
     }
-    printf("\n");
     n++;
-
-system("PAUSE");
 }
 printf("\n");
 
-//Resultados
-//printf(" Número de iterações: %d \n\n", n);
+/* ------------- Impressão de resultados ------------- */
+
+printf(" | \n\n | Precisão do cálculo = 0.001");
+printf(" \n | \n"); //Pula 1 linha
 
 for (i=0;i<a;i++){
-printf(" X_%d = %.2f \n", i, resultados[i]);
+printf(" | x%d = %10.5f \n", i+1, resultados[i]);
 }
 
-//finaliza o programa
-printf("\n");
-system("PAUSE");
-
+//Menu para finalização do programa ou realizar outro cálculo
+int menu = 0;
+printf(" \n | \n | 1. Calcular Novamente \n");
+printf(" | 2. Sair \n");
+printf(" | \n");
+printf(" | Digite o nº da opção desejada:");
+fflush(stdin);
+scanf("%d",&menu);
+if(menu == 1){
+    main();
+}
+if(menu == 2){
+    abort();
+}
 }
