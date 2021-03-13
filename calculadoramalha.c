@@ -11,7 +11,6 @@ int verifica_int(float valor){
         return 0;
     }
     return 0;
-
 }
 
 /* ------- Função main() -------------------------------------------- */
@@ -28,22 +27,22 @@ int i; //contador de linha
 int j; //contador de coluna
 
 
-//Rotina para identificação da dimensão da matriz
+/* ------- Rotina para identificação da dimensão da matriz ---------- */
 printf("\n");      //Vai pra próxima linha
-printf(" | ------ CALCULADORA DE SISTEMAS LINEARES ----- |");
+printf(" | CALCULADORA DE SISTEMAS LINEARES ");
 printf("\n | \n"); //Pula 1 linha
 printf(" | Dimensão da Matriz = ");
 fflush(stdin);     //Limpa o cache da entrada
 scanf("%d",&a);    //Adquire a dimensão da matriz
 printf(" | \n\n");
 
-
 float matriz[a][a];//Define a matriz dos argumentos "a"
 float termos[a];   //Define o vetor de termos independentes "b"
 
-/* ------------------------- Rotina para inserção dos argumentos ------------------------- */
 
-printf(" | ------- Digite os argumentos da Matriz ------ |");
+/* ------- Rotina para inserção dos argumentos ---------------------- */
+
+printf(" | Digite os argumentos da Matriz ");
 printf("\n | \n");
 
 //Imprime o modelo da matriz a ser digitada
@@ -78,9 +77,9 @@ printf(" | \n\n");
 system("cls"); // Limpa a tela
 
 printf("\n");      //Vai pra próxima linha
-printf(" | ------ CALCULADORA DE SISTEMAS LINEARES ----- |");
+printf(" | CALCULADORA DE SISTEMAS LINEARES ");
 printf("\n | \n"); //Pula 1 linha
-printf(" | ------------- Matriz informada -------------- |");
+printf(" | Matriz informada ");
 printf("\n | \n");
 for(i=0;i<a;i++){
     printf(" |");
@@ -90,32 +89,35 @@ for(i=0;i<a;i++){
     printf(" | %7.2f |\n", termos[i]);
 }
 printf(" | \n\n");
-/* ------------------ Início dos Cálculos ------------------ */
+
+/* ------ Definição de variáveis para os cálculos ---------- */
 int aux = 0;
 float resultados[a]; //vetor de resultados
 float res_ant[a];
 int n = 1;      //Para contagem de iterações
 float soma = 0; //Para soma dos argumentos
 
-/* ------------------ Inicio das iterações ----------------- */
 
+/* ------------------ Inicio das iterações ----------------- */
 //Limpa as variáveis antes de iniciar
 for (i=0;i<a;i++){
     resultados[i] = 0;
     res_ant[i] = 0;
 }
 
-printf(" | ----------- Inicio das Iterações ------------ |");
+printf(" | Inicio das Iterações ");
 printf("\n | \n"); //Pula 1 linha
 
 //Inicia o Loop
 while (aux != a){
 
-printf(" | Iteração Nº %d \n", n);
-if(n >= 100){
-    printf("\n");
-    break;
-}
+    printf(" | Iteração Nº %d \n", n);
+
+    //condição para numero máximo de iterações
+    if(n >= 1000){
+        printf("\n");
+        break;
+    }
 
 
     /* --------- Repetição para calcular a soma dos argumentos ------------------------------- */
@@ -148,8 +150,7 @@ if(n >= 100){
         }
     }
     n++;
-}
-printf("\n");
+};
 
 /* ------------- Impressão de resultados ------------- */
 
@@ -165,13 +166,14 @@ int menu = 0;
 printf(" \n | \n | 1. Calcular Novamente \n");
 printf(" | 2. Sair \n");
 printf(" | \n");
-printf(" | Digite o nº da opção desejada:");
+printf(" | Digite o nº da opção desejada: ");
 fflush(stdin);
 scanf("%d",&menu);
 if(menu == 1){
     main();
 }
 if(menu == 2){
-    abort();
+    printf(" \n | Finalizando o programa... \n");
+    exit(0);
 }
 }
