@@ -25,7 +25,7 @@ setlocale(LC_ALL,"Portuguese");//Definição de linguagem para acentuação
 int a; //dimensão da matriz
 int i; //contador de linha
 int j; //contador de coluna
-
+int erro = 0; //auxiliar de erro de cálculo
 
 /* ------- Rotina para identificação da dimensão da matriz ---------- */
 printf("\n");      //Vai pra próxima linha
@@ -111,11 +111,12 @@ printf("\n | \n"); //Pula 1 linha
 //Inicia o Loop
 while (aux != a){
 
-    printf(" | Iteração Nº %d \n", n);
+    //printf(" | Iteração Nº %d \n", n);
 
     //condição para numero máximo de iterações
     if(n >= 1000){
         printf("\n");
+        erro =1;
         break;
     }
 
@@ -153,12 +154,18 @@ while (aux != a){
 };
 
 /* ------------- Impressão de resultados ------------- */
+if (erro == 1){
+    printf(" | ERRO DE CÁLCULO: \n | \n");
+    printf(" | Matriz informada inconsistente \n | \n");
 
-printf(" | \n\n | Precisão do cálculo = 0.001");
-printf(" \n | \n"); //Pula 1 linha
+}else{
+printf(" | \n\n | Precisão  = 0.001");
+printf(" \n | Iterações = %5.d", n);
+printf(" \n | \n", n); //Pula 1 linha
 
 for (i=0;i<a;i++){
 printf(" | x%d = %10.5f \n", i+1, resultados[i]);
+}
 }
 
 //Menu para finalização do programa ou realizar outro cálculo
