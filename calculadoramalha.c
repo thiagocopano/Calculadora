@@ -3,7 +3,7 @@
 #include <math.h>
 #include <locale.h>
 
-/* ------- FunÁ„o para verificar se um n˙mero È inteiro ------------ */
+/* ------- Fun√ß√£o para verificar se um n√∫mero √© inteiro ------------ */
 int verifica_int(float valor){
     if (valor == (int)valor){ //(int)valor -> transforma em inteiro
         return 1;
@@ -13,59 +13,62 @@ int verifica_int(float valor){
     return 0;
 }
 
-/* ------- FunÁ„o main() -------------------------------------------- */
+/* ------- Fun√ß√£o main() -------------------------------------------- */
 int main(){
 
-/* ------- ConfiguraÁıes da calculadora ----------------------------- */
-setlocale(LC_ALL,"Portuguese");//DefiniÁ„o de linguagem para acentuaÁ„o
+/* ------- Configura√ß√µes da calculadora ----------------------------- */
+setlocale(LC_ALL,"Portuguese");//Defini√ß√£o de linguagem para acentua√ß√£o
 
 
 
-//DefiniÁ„o de vari·veis
-int a; //dimens„o da matriz
+//Defini√ß√£o de vari√°veis
+int a; //dimens√£o da matriz
 int i; //contador de linha
 int j; //contador de coluna
-int erro = 0; //auxiliar de erro de c·lculo
+int erro = 0; //auxiliar de erro de c√°lculo
 
-/* ------- Rotina para identificaÁ„o da dimens„o da matriz ---------- */
-printf("\n");      //Vai pra prÛxima linha
+/* ------- Rotina para identifica√ß√£o da dimens√£o da matriz ---------- */
+printf("\n");      //Vai pra pr√≥xima linha
 printf(" | CALCULADORA DE SISTEMAS LINEARES ");
 printf("\n | \n"); //Pula 1 linha
-printf(" | Dimens„o da Matriz = ");
+printf(" | Dimens√£o da Matriz = ");
 fflush(stdin);     //Limpa o cache da entrada
-scanf("%d",&a);    //Adquire a dimens„o da matriz
+scanf("%d",&a);    //Adquire a dimens√£o da matriz
 printf(" | \n\n");
 
 float matriz[a][a];//Define a matriz dos argumentos "a"
 float termos[a];   //Define o vetor de termos independentes "b"
 
 
-/* ------- Rotina para inserÁ„o dos argumentos ---------------------- */
+/* ------- Rotina para inser√ß√£o dos argumentos ---------------------- */
 
 printf(" | Digite os argumentos da Matriz ");
 printf("\n | \n");
 
 //Imprime o modelo da matriz a ser digitada
-for(i=0;i<a;i++){
+for(i=0;i<a;i++){ //repeti√ß√£o respons√°vel pelas LINHAS 
     printf(" |");
-    for(j=0;j<a;j++){
+    for(j=0;j<a;j++){ //repeti√ß√£o respons√°vel pelas COLUNAS
     printf(" a%d%d", i+1, j+1);
     }
     printf(" | b%d |\n",i+1);
 }
 printf(" | \n\n | Argumentos: \n | \n");
 
-//Rotina para inserÁ„o dos argumentos 'a'
-for(i=0;i<a;i++){
-	for(j=0;j<a;j++){
+/* ----- Rotina para inser√ß√£o dos argumentos 'a' ----- */
+for(i=0;i<a;i++){//repeti√ß√£o respons√°vel pelas LINHAS 
+	
+	for(j=0;j<a;j++){{//repeti√ß√£o respons√°vel pelas COLUNAS
 		printf(" | a%d%d = ", i+1, j+1);
 		fflush(stdin);
 		scanf("%f",&matriz[i][j]);
-    }
+  	}
+			 
 }
+	
 printf(" | \n\n | Termos independentes: \n | \n");
 
-//Rotina para inserÁ„o dos termos independentes 'b'
+//Rotina para inser√ß√£o dos termos independentes 'b'
 for(i=0;i<a;i++){
     printf(" | b%d = ", i+1);
     fflush(stdin);
@@ -76,7 +79,7 @@ printf(" | \n\n");
 //Rotina para imprimir a matriz inserida
 system("cls"); // Limpa a tela
 
-printf("\n");      //Vai pra prÛxima linha
+printf("\n");      //Vai pra pr√≥xima linha
 printf(" | CALCULADORA DE SISTEMAS LINEARES ");
 printf("\n | \n"); //Pula 1 linha
 printf(" | Matriz informada ");
@@ -90,30 +93,30 @@ for(i=0;i<a;i++){
 }
 printf(" | \n\n");
 
-/* ------ DefiniÁ„o de vari·veis para os c·lculos ---------- */
+/* ------ Defini√ß√£o de vari√°veis para os c√°lculos ---------- */
 int aux = 0;
 float resultados[a]; //vetor de resultados
 float res_ant[a];
-int n = 1;      //Para contagem de iteraÁıes
+int n = 1;      //Para contagem de itera√ß√µes
 float soma = 0; //Para soma dos argumentos
 
 
-/* ------------------ Inicio das iteraÁıes ----------------- */
-//Limpa as vari·veis antes de iniciar
+/* ------------------ Inicio das itera√ß√µes ----------------- */
+//Limpa as vari√°veis antes de iniciar
 for (i=0;i<a;i++){
     resultados[i] = 0;
     res_ant[i] = 0;
 }
 
-printf(" | Inicio das IteraÁıes ");
+printf(" | Inicio das Itera√ß√µes ");
 printf("\n | \n"); //Pula 1 linha
 
 //Inicia o Loop
 while (aux != a){
 
-    //printf(" | IteraÁ„o N∫ %d \n", n);
+    //printf(" | Itera√ß√£o N¬∫ %d \n", n);
 
-    //condiÁ„o para numero m·ximo de iteraÁıes
+    //condi√ß√£o para numero m√°ximo de itera√ß√µes
     if(n >= 1000){
         printf("\n");
         erro =1;
@@ -121,22 +124,26 @@ while (aux != a){
     }
 
 
-    /* --------- RepetiÁ„o para calcular a soma dos argumentos ------------------------------- */
+    /* --------- Repeti√ß√£o para calcular a soma dos argumentos ------------------------------- */
     for (i=0;i<a;i++){
-        soma = 0; //Zerar a vari·vel de soma
+        soma = 0; //Zerar a vari√°vel de soma
 
-        //Soma dos argumentos
+        //Soma de todos os argumentos "a" da linha
         for (j=0;j<a;j++){
             soma = soma + (matriz[i][j]*resultados[j]);
         }
-        soma = (soma - matriz[i][i]*resultados[i]); // Exemplo: a11*x1 + a12*x2 + a13*x3 - a11*x1
-        resultados[i] = ((termos[i]-soma)/matriz[i][i]); //
+	
+	//remo√ß√£o do argumento que acompanha x_1
+        soma = ((soma) - matriz[i][i]*resultados[i]); // Exemplo: (a11*x1 + a12*x2 + a13*x3) - a11*x1
+	    
+        resultados[i] = ((termos[i]-soma)/matriz[i][i]); //Calcula o resultado para x_i
     }
 
-    //CondiÁ„o para verificar a diferenÁa entre todos
-    //termos calculados em 1 rodada de 'a' argumentos
-    if (verifica_int(i/a)){
-        aux = 0; //redefine a vari·vel auxiliar que acumula
+/* ----- Condi√ß√£o para verificar a diferen√ßa entre todos -----
+   ----- termos calculados em 1 rodada de 'a' argumentos ----- */
+	
+    if (verifica_int(i/a)){//verifica se 'i' √© m√∫ltiplo de 'a'
+        aux = 0; //redefine a vari√°vel auxiliar que acumula
         float diferenca[a];
             for (i=0;i<a;i++){
                 float n1 = fabs(res_ant[i]);
@@ -145,22 +152,22 @@ while (aux != a){
                     aux++;
                 }
             }
-        //RepetiÁ„o para atualizar o vetor de resultados anteriores.
+        //Repeti√ß√£o para atualizar o vetor de resultados anteriores.
         for (i=0;i<a;i++){
             res_ant[i] = resultados[i];
         }
     }
-    n++;
+    n++;//contador de itera√ß√µes
 };
 
-/* ------------- Impress„o de resultados ------------- */
+/* ------------- Impress√£o de resultados ------------- */
 if (erro == 1){
-    printf(" | ERRO DE C¡LCULO: \n | \n");
+    printf(" | ERRO DE C√ÅLCULO: \n | \n");
     printf(" | Matriz informada inconsistente \n | \n");
 
 }else{
-printf(" | \n\n | Precis„o  = 0.001");
-printf(" \n | IteraÁıes = %5.d", n);
+printf(" | \n\n | Precis√£o  = 0.001");
+printf(" \n | Itera√ß√µes = %5.d", n);
 printf(" \n | \n", n); //Pula 1 linha
 
 for (i=0;i<a;i++){
@@ -168,12 +175,12 @@ printf(" | x%d = %10.5f \n", i+1, resultados[i]);
 }
 }
 
-//Menu para finalizaÁ„o do programa ou realizar outro c·lculo
+//Menu para finaliza√ß√£o do programa ou realizar outro c√°lculo
 int menu = 0;
 printf(" \n | \n | 1. Calcular Novamente \n");
 printf(" | 2. Sair \n");
 printf(" | \n");
-printf(" | Digite o n∫ da opÁ„o desejada: ");
+printf(" | Digite o n¬∫ da op√ß√£o desejada: ");
 fflush(stdin);
 scanf("%d",&menu);
 if(menu == 1){
