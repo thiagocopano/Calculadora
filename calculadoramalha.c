@@ -58,7 +58,7 @@ printf(" | \n\n | Argumentos: \n | \n");
 /* ----- Rotina para inserção dos argumentos 'a' ----- */
 for(i=0;i<a;i++){//repetição responsável pelas LINHAS 
 	
-	for(j=0;j<a;j++){{//repetição responsável pelas COLUNAS
+	for(j=0;j<a;j++){//repetição responsável pelas COLUNAS
 		printf(" | a%d%d = ", i+1, j+1);
 		fflush(stdin);
 		scanf("%f",&matriz[i][j]);
